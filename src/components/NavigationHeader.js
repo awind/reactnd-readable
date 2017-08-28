@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
+import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 import Drawer from 'material-ui/Drawer'
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
+import List, { ListItem, ListItemText } from 'material-ui/List'
 import * as ReadableAPI from '../ReadableAPI'
 
 class NavigationHeader extends Component {
@@ -41,9 +42,10 @@ class NavigationHeader extends Component {
                         <IconButton color="contrast" aria-label="Menu" onClick={this.handleDrawerOpen}>
                             <MenuIcon />
                         </IconButton>
-                        <Typography type="title" color="inherit">
+                        <Typography type="title" color="inherit" className="header-title">
                             React
                         </Typography>
+                        <Button color="contrast">Add Post</Button>
                     </Toolbar>
                 </AppBar>
 
