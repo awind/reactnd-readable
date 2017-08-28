@@ -8,7 +8,7 @@ const authorizationHeader = { headers: { 'Authorization': '123456'}}
 // Get all of the categories available for the app.
 export const getCategories = () => 
     fetch(`${api}/categories`, authorizationHeader)
-        .then(res => res.json())
+        .then(res => res.json()).then(data => data.categories)
 
 //  ---------------  POST  -------------------
 
@@ -89,7 +89,7 @@ export const getCommentDetail = (id) =>
 
 
 // Used for voting on a comment
-export const voteComment = () => 
+export const voteComment = (id) => 
     fetch(`${api}/comments/${id}`, {
         authorizationHeader,
         method: 'POST',
