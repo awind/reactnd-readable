@@ -3,6 +3,7 @@ import * as ReadableAPI from '../ReadableAPI'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
+import { NavLink } from 'react-router-dom'
 
 class PostList extends Component {
 
@@ -36,7 +37,7 @@ class PostList extends Component {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button dense>Read More...</Button>
+                                    <Button dense><NavLink className="read-post-link" to={`/detail/${item.id}`}>Read More...</NavLink></Button>
                                 </CardActions>
                             </Card>
                       </div>

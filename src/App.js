@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
-import './css/App.css'
-import * as ReadableAPI from './ReadableAPI'
-import NavigationHeader from './components/NavigationHeader'
-import PostList from './components/PostList'
+import { Route, Switch } from 'react-router-dom'
+import Main from './components/Main'
+import PostDetail from './components/PostDetail'
 
 class App extends Component {
-  componentDidMount() {
-    ReadableAPI.getCategoryPosts('redux').then(data => console.log(data))
-  }
-
 
   render() {
     return (
-      <div className="App">
-        <NavigationHeader />
-        <PostList />
-      </div>
-    );
+      <Switch>
+        <Route exact path='/' component={Main}></Route>
+        <Route exact path='/add' component={PostDetail}></Route>
+        <Route exact path='/detail/:id' component={PostDetail}></Route>
+      </Switch>
+    )
   }
 }
 

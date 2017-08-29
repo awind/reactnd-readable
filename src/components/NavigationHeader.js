@@ -8,6 +8,8 @@ import MenuIcon from 'material-ui-icons/Menu'
 import Drawer from 'material-ui/Drawer'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import * as ReadableAPI from '../ReadableAPI'
+import { NavLink } from 'react-router-dom'
+
 
 class NavigationHeader extends Component {
     state = {
@@ -45,7 +47,7 @@ class NavigationHeader extends Component {
                         <Typography type="title" color="inherit" className="header-title">
                             React
                         </Typography>
-                        <Button color="contrast">Add Post</Button>
+                        <Button color="contrast"><NavLink className="add-link" to='/add'>Add Post</NavLink></Button>
                     </Toolbar>
                 </AppBar>
 

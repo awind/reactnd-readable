@@ -9,6 +9,15 @@
   width: 100%;
 }
 
+.add-link {
+  text-decoration: none;
+  color: white
+}
+
+.read-post-link {
+  text-decoration: none;
+  color: black;
+}
 
 .header-title {
   flex: 1;
