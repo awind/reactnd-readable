@@ -6,19 +6,18 @@ import registerServiceWorker from './registerServiceWorker'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import logger from 'redux-logger'
-import reducer from './reducers'
+import rootReducer from './reducers/index'
 import createBrowserHistory from 'history/createBrowserHistory'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const defaultStore = {
-    categories: [],
     posts: [],
-    
+    category: "react",
 }
 
 const store = createStore(
-    reducer,
+    rootReducer,
     defaultStore,
     composeEnhancers(
         applyMiddleware(logger)

@@ -5,6 +5,8 @@ export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 
+export const CHANGE_CATEGORY = 'CHANGE_CATEGORY'
+
 // export const ADD_COMMENT = 'ADD_COMMENT'
 // export const EDIT_COMMENT = 'EDIT_COMMENT'
 // export const DELETE_COMMENT = 'DELETE_COMMENT'
@@ -48,6 +50,13 @@ export function deletePost(id) {
     return {
         type: DELETE_POST,
         id
+    }
+}
+
+export function changeCategory(category) {
+    return {
+        type: CHANGE_CATEGORY,
+        category
     }
 }
 

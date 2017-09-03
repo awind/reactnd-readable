@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import * as ReadableAPI from '../ReadableAPI'
+import * as ReadableAPI from '../utils/ReadableAPI'
 
 class PostDetail extends Component {
 

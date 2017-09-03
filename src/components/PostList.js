@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import * as ReadableAPI from '../ReadableAPI'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
@@ -10,19 +9,30 @@ import { bindActionCreators } from 'redux'
 
 class PostList extends Component {
 
-    componentDidMount() {
-        ReadableAPI.getCategoryPosts('react').then(data => {
-            console.log(data)
-            data.forEach((item) => {
-                this.props.addPost(item)
-            })
-        })
-    }
+    //  fetchPost = (category) => {
+    //     ReadableAPI.getCategoryPosts(category).then(data => {
+    //         console.log(data)
+    //         data.forEach((item) => {
+    //             this.props.addPost(item)
+    //         })
+    //     })
+    // }
+
+    // componentDidMount() {
+    //     const category = this.props.category
+    //     this.fetchPost(category)
+    // }
+
+    // componentWillReceiveProps(props) {
+    //     console.log(this.props.category)
+    //     this.fetchPost(props.category)
+    // }
 
     render() {
+        const posts = this.props.posts
         return (
             <div>
-                { this.props.posts.map((item, index) => {
+                { posts.map((item, index) => {
                     return (
                         <div key={index}>
                             <Card className="card">
@@ -51,7 +61,8 @@ class PostList extends Component {
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts
+        posts: state.posts,
+        category: state.category,
     }
 }
 

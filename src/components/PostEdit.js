@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import * as ReadableAPI from '../ReadableAPI'
+import * as ReadableAPI from '../utils/ReadableAPI'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import * as Utils from '../utils'
+import { uuid } from '../utils/Helpers'
 import * as actionCreators from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -25,7 +25,7 @@ class PostEdit extends Component {
     handleDone = (e) => {
         e.preventDefault()
         const { title, body } = this.state
-        const id = Utils.uuid(22, 20)
+        const id = uuid(22, 20)
         const timestamp = Date.now()
         ReadableAPI.addPost({id: id, 
             timestamp: timestamp, 

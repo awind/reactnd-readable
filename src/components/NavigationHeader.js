@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 import Drawer from 'material-ui/Drawer'
 import List, { ListItem, ListItemText } from 'material-ui/List'
-import * as ReadableAPI from '../ReadableAPI'
+import * as ReadableAPI from '../utils/ReadableAPI'
 import { NavLink } from 'react-router-dom'
 import * as actionCreators from '../actions'
 import { bindActionCreators } from 'redux'
@@ -40,7 +40,6 @@ class NavigationHeader extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div className="App-header">
                 <AppBar position="static">
@@ -49,7 +48,7 @@ class NavigationHeader extends Component {
                             <MenuIcon />
                         </IconButton>
                         <Typography type="title" color="inherit" className="header-title">
-                            React
+                            {this.props.title}
                         </Typography>
                         <Button color="contrast"><NavLink className="add-link" to='/add'>Add Post</NavLink></Button>
                     </Toolbar>
@@ -63,9 +62,11 @@ class NavigationHeader extends Component {
                         <List className="navigation-list">
                             {this.state.categories.map((item, index) => {
                                 return (
-                                    <ListItem button key={index}>
-                                        <ListItemText primary={item.name} />
-                                    </ListItem>
+                                    <NavLink className="add-link" to={`/${item.name}`} key={index}>
+                                        <ListItem button>
+                                            <ListItemText primary={item.name} />
+                                        </ListItem>
+                                    </NavLink>
                                 )
                             })}
                         </List>
@@ -78,7 +79,7 @@ class NavigationHeader extends Component {
 
 function mapStateToProps(state) {
     return {
-        categories: state.categories
+        category: state.category,
     }
 }
 

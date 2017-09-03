@@ -1,4 +1,4 @@
-export const uuid = (len, radix) => {
+export function uuid(len, radix) {
     var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
     var uuid = [], i;
     radix = radix || chars.length;
