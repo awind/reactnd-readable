@@ -3,8 +3,15 @@ import * as ReadableAPI from '../ReadableAPI'
 
 class PostDetail extends Component {
 
+    state = {
+        post: null
+    }
+
     fetchPost = (id) => {
-        ReadableAPI.getPostDetail(id).then(data => console.log(data))
+        ReadableAPI.getPostDetail(id).then(data => {
+            console.log(data)
+            this.setState({post: data})
+        })
     }
 
     fetchPostComments = (id) => {
@@ -13,15 +20,21 @@ class PostDetail extends Component {
 
     componentDidMount() {
         let match = this.props.match.params.id
-        console.log(match)
-        this.fetchPost(match)
-        this.fetchPostComments(match)
+        if(match) {
+            this.fetchPost(match)
+            this.fetchPostComments(match)
+        }
     }
 
     render() {
+        const post = this.state.post
         return (
             <div>
-                Post Detail
+                { post && <div>
+                        <h1>{post.title}</h1>
+                        <p>{post.body}</p>
+                    </div>
+                }
             </div>
         )
     }

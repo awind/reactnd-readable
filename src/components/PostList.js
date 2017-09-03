@@ -4,24 +4,25 @@ import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as actionCreators from '../actions'
+import { bindActionCreators } from 'redux'
 
 class PostList extends Component {
-
-    state = {
-        posts: []
-    }
 
     componentDidMount() {
         ReadableAPI.getCategoryPosts('react').then(data => {
             console.log(data)
-            this.setState({posts: data})
+            data.forEach((item) => {
+                this.props.addPost(item)
+            })
         })
     }
 
     render() {
         return (
             <div>
-                { this.state.posts.map((item, index) => {
+                { this.props.posts.map((item, index) => {
                     return (
                         <div key={index}>
                             <Card className="card">
@@ -48,4 +49,14 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+function mapStateToProps(state) {
+    return {
+        posts: state.posts
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList)

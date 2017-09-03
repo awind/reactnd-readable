@@ -23,18 +23,18 @@ export const getAllPosts = () =>
         .then(res => res.json())
 
 // Add a new post
-export const addPost = (id, timestamp, title, body, owner, category) => 
+export const addPost = ({id, timestamp, title, body, author, category}) => 
     fetch(`${api}/posts`, { 
-        authorizationHeader,
+        ...authorizationHeader,
         method: 'POST',
-        body: JSON.stringify({id, timestamp, title, body, owner, category})
+        body: JSON.stringify({id, timestamp, title, body, author, category})
     })
         .then(res => res.json())
 
 // Edit the details of an existing post
 export const updatePost = (id, title, body) =>
     fetch(`${api}/posts/${id}`, {
-        authorizationHeader,
+        ...authorizationHeader,
         method: 'PUT',
         body: JSON.stringify({title, body})
     })
@@ -44,7 +44,7 @@ export const updatePost = (id, title, body) =>
 // Sets the parentDeleted flag for all child comments to 'true'.
 export const deletePost = (id) => 
     fetch(`${api}/posts/${id}`, {
-        authorizationHeader,
+        ...authorizationHeader,
         method: 'DELETE'
     })
         .then(res => res.json())
@@ -58,7 +58,7 @@ export const getPostDetail = (id) =>
 // params: options -> upVote/downVote
 export const votePost = (id, options) =>
     fetch(`${api}/posts/${id}`, {
-        authorizationHeader,
+        ...authorizationHeader,
         method: 'POST',
         body: JSON.stringify({options})
     })
@@ -74,11 +74,11 @@ export const getPostComments = (id) =>
         .then(res => res.json())
 
 // Add a comment to a post
-export const addPostComment = (id, timestamp, body, owner, parentId) =>
+export const addPostComment = (id, timestamp, body, author, parentId) =>
     fetch(`${api}/comments`, {
-        authorizationHeader,
+        ...authorizationHeader,
         method: 'POST',
-        body: JSON.stringify({id, timestamp, body, owner, parentId})
+        body: JSON.stringify({id, timestamp, body, author, parentId})
     })
         .then(res => res.json())
 
@@ -91,7 +91,7 @@ export const getCommentDetail = (id) =>
 // Used for voting on a comment
 export const voteComment = (id) => 
     fetch(`${api}/comments/${id}`, {
-        authorizationHeader,
+        ...authorizationHeader,
         method: 'POST',
     })
         .then(res => res.json())
@@ -99,7 +99,7 @@ export const voteComment = (id) =>
 // Edit the details of an existing comment
 export const editComment = (id, timestamp, body) =>
     fetch(`${api}/comments/${id}`, {
-        authorizationHeader,
+        ...authorizationHeader,
         method: 'PUT',
         body: JSON.stringify({timestamp, body})
     })
@@ -108,7 +108,7 @@ export const editComment = (id, timestamp, body) =>
 // Sets a comments's deleted flag to true
 export const deleteComment = (id) => 
     fetch(`${api}/comments/${id}`, {
-        authorizationHeader,
+        ...authorizationHeader,
         method: 'DELETE',
     })
         .then(res => res.json())

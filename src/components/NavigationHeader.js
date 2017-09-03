@@ -9,6 +9,9 @@ import Drawer from 'material-ui/Drawer'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import * as ReadableAPI from '../ReadableAPI'
 import { NavLink } from 'react-router-dom'
+import * as actionCreators from '../actions'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 
 class NavigationHeader extends Component {
@@ -37,6 +40,7 @@ class NavigationHeader extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className="App-header">
                 <AppBar position="static">
@@ -72,5 +76,14 @@ class NavigationHeader extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        categories: state.categories
+    }
+}
 
-export default NavigationHeader
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationHeader)
