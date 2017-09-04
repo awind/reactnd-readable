@@ -13,6 +13,7 @@ class App extends Component {
         <Route exact path='/add' component={PostEdit}></Route>
         <Route exact path='/:category' component={Main}></Route>
         <Route exact path='/detail/:id' component={PostDetail}></Route>
+        <Route exact path='/edit/:id' component={PostEdit}></Route>
       </Switch>
     )
   }

@@ -10,8 +10,24 @@ import { connect } from 'react-redux'
 class PostEdit extends Component {
 
     state = {
+        id: "", 
         title: "",
         body: ""
+    }
+
+    componentDidMount() {
+        const id = this.props.match.params.id
+        if(id) {
+            console.log(id)
+            const posts = this.props.posts.filter((item) => {
+                return item.id === id
+            })
+            if(posts.length > 0) {
+                console.log(posts[0])
+                const post = posts[0]
+                this.setState({id: post.id, title: post.title, body: post.body})
+            }
+        }
     }
 
     handleTitleInputChange =(e) => {
@@ -22,8 +38,7 @@ class PostEdit extends Component {
         this.setState({body: e.target.value})
     }
 
-    handleDone = (e) => {
-        e.preventDefault()
+    handleAddPost = () => {
         const { title, body } = this.state
         const id = uuid(22, 20)
         const timestamp = Date.now()
@@ -43,11 +58,31 @@ class PostEdit extends Component {
                 voteScore: data.voteScore,
                 deleted: data.deleted,
             })
+            this.props.history.push('/react')
         })
     }
 
-    render() {
+    handleUpdatePost = () => {
+        const { id, title, body } = this.state
+        ReadableAPI.updatePost({id: id, title: title, body: body}).then((data) => {
+            console.log("update post: ", data)
+            this.props.editPost({id: id, title: title, body: body})
+            this.props.history.push('/react')
+        })
+    }
 
+    handleDone = (e) => {
+        e.preventDefault()
+        const id = this.props.match.params.id
+        if(id) {
+            this.handleUpdatePost()
+        } else {
+            this.handleAddPost()
+        }
+    }
+
+    render() {
+        const id = this.props.match.params.id
         return (
             <div>
                 <TextField

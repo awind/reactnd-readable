@@ -9,15 +9,13 @@ import Drawer from 'material-ui/Drawer'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 import * as actionCreators from '../actions'
 import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-
 
 class NavigationHeader extends Component {
     state = {
         drawerOpen: false,
-        categories: []
     }
 
     handleDrawerOpen = () => {
@@ -35,7 +33,9 @@ class NavigationHeader extends Component {
     componentDidMount() {
         ReadableAPI.getCategories().then(data => {
             console.log(data)
-            this.setState({categories: data})
+            data.forEach((item) => {
+                this.props.addCategory({name: item.name, path: item.path})
+            })
         })
     }
 
@@ -60,7 +60,7 @@ class NavigationHeader extends Component {
                     onClick={this.handleDrawerClose}>
                     <div>
                         <List className="navigation-list">
-                            {this.state.categories.map((item, index) => {
+                            {this.props.categories && this.props.categories.map((item, index) => {
                                 return (
                                     <NavLink className="add-link" to={`/${item.name}`} key={index}>
                                         <ListItem button>
@@ -79,7 +79,7 @@ class NavigationHeader extends Component {
 
 function mapStateToProps(state) {
     return {
-        category: state.category,
+        categories: state.categories
     }
 }
 

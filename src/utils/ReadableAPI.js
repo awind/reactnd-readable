@@ -32,7 +32,7 @@ export const addPost = ({id, timestamp, title, body, author, category}) =>
         .then(res => res.json())
 
 // Edit the details of an existing post
-export const updatePost = (id, title, body) =>
+export const updatePost = ({id, title, body}) =>
     fetch(`${api}/posts/${id}`, {
         ...authorizationHeader,
         method: 'PUT',

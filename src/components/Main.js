@@ -29,7 +29,7 @@ class Main extends Component {
         return (
             <div className="App">
                 <NavigationHeader title={category}/>
-                <PostList />
+                <PostList posts={this.props.posts}/>
           </div>
         )
     }

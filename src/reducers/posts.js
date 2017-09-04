@@ -22,17 +22,20 @@ function posts(state = [], action) {
                     deleted,
             }]
         case EDIT_POST:
-            return {
-                ...state,
-                id,
-                title,
-                body
-            }
+            return state.map((item) => {
+                if(item.id === id) {
+                    return {
+                        ...item,
+                        title,
+                        body
+                    }
+                }
+                return item
+            })
         case DELETE_POST:
-            return {
-                ...state,
-                id
-            }
+            return state.filter((item) => {
+                return item.id !== id
+            })
         default:
             return state
     }

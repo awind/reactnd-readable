@@ -13,7 +13,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const defaultStore = {
     posts: [],
-    category: "react",
+    comments: [],
+    categories: [],
 }
 
 const store = createStore(

@@ -5,11 +5,11 @@ export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 
-export const CHANGE_CATEGORY = 'CHANGE_CATEGORY'
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
-// export const ADD_COMMENT = 'ADD_COMMENT'
-// export const EDIT_COMMENT = 'EDIT_COMMENT'
-// export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const ADD_CATEGORY = 'ADD_CATEGORY'
 
 // export function orderByScore() {
 //     return {
@@ -53,37 +53,37 @@ export function deletePost(id) {
     }
 }
 
-export function changeCategory(category) {
+export function addComment({id, timestamp, body, author, parentId}) {
     return {
-        type: CHANGE_CATEGORY,
-        category
+        type: ADD_COMMENT,
+        id,
+        timestamp,
+        body,
+        author,
+        parentId
     }
 }
 
-// export function addComment({id, timestamp, body, owner, parentId}) {
-//     return {
-//         type: ADD_COMMENT,
-//         id,
-//         timestamp,
-//         body,
-//         owner,
-//         parentId
-//     }
-// }
+export function editComment({id, timestamp, body}) {
+    return {
+        type: EDIT_COMMENT,
+        id,
+        timestamp,
+        body
+    }
+}
 
-// export function editComment({id, timestamp, body}) {
-//     return {
-//         type: EDIT_COMMENT,
-//         id,
-//         timestamp,
-//         body
-//     }
-// }
+export function deleteComment(id) {
+    return {
+        type: DELETE_COMMENT,
+        id
+    }
+}
 
-// export function deleteComment(id) {
-//     return {
-//         type: DELETE_COMMENT,
-//         id
-//     }
-// }
-
+export function addCategory({name, path}) {
+    return {
+        type: ADD_CATEGORY,
+        name,
+        path
+    }
+}
