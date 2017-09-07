@@ -11,7 +11,6 @@ class Main extends Component {
 
     fetchPost = (category) => {
         ReadableAPI.getCategoryPosts(category).then(data => {
-            console.log(data)
             data.forEach((item) => {
                 this.props.addPost(item)
             })
@@ -20,16 +19,33 @@ class Main extends Component {
 
     componentWillReceiveProps(props) {
         const category = props.match.params.category
-        console.log(category)
         this.fetchPost(category)
     }
 
+    componentDidMount () {
+        const match = this.props.match.params.category
+        // Progress
+        ReadableAPI.getCategories().then(data => {
+            console.log(data)
+            data.forEach((item) => {
+                this.props.addCategory({name: item.name, path: item.path})
+            })
+            if(!match) {
+                this.props.history.push('/' + data[0].name)
+            }
+        })
+    }
+    
+
     render() {
         const category = this.props.match.params.category
+        const posts = this.props.posts.filter((item) => {
+            return item.category === category
+        })
         return (
             <div className="App">
-                <NavigationHeader title={category}/>
-                <PostList posts={this.props.posts}/>
+                <NavigationHeader title={category} categories={this.props.categories} />
+                <PostList posts={posts} category={category}/>
           </div>
         )
     }
@@ -38,6 +54,7 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         posts: state.posts,
+        categories: state.categories,
     }
 }
 

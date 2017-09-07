@@ -25,9 +25,11 @@ class PostList extends Component {
                                         {item.body}
                                     </Typography>
                                 </CardContent>
-                                <CardActions>
-                                    <Button dense><NavLink className="read-post-link" to={`/detail/${item.id}`}>Read More...</NavLink></Button>
-                                </CardActions>
+                                <NavLink className="read-post-link" to={`/${this.props.category}/detail/${item.id}`}>
+                                    <CardActions>
+                                        <Button dense>Read More...</Button>
+                                    </CardActions>
+                                </NavLink>
                             </Card>
                       </div>
                     )

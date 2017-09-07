@@ -18,7 +18,6 @@ class PostEdit extends Component {
     componentDidMount() {
         const id = this.props.match.params.id
         if(id) {
-            console.log(id)
             const posts = this.props.posts.filter((item) => {
                 return item.id === id
             })
@@ -39,6 +38,7 @@ class PostEdit extends Component {
     }
 
     handleAddPost = () => {
+        const category = this.props.match.params.category
         const { title, body } = this.state
         const id = uuid(22, 20)
         const timestamp = Date.now()
@@ -47,27 +47,28 @@ class PostEdit extends Component {
             title: title, 
             body: body,
             author: "ppp", 
-            category: "react" }
+            category: category }
         ).then((data) => {
             this.props.addPost({id: id,
                 timestamp: timestamp,
                 title: title,
                 body: body,
                 author: 'ppp',
-                category: 'react',
+                category: category,
                 voteScore: data.voteScore,
                 deleted: data.deleted,
             })
-            this.props.history.push('/react')
+            this.props.history.push('/' + category)
         })
     }
 
     handleUpdatePost = () => {
+        const category = this.props.match.params.category
         const { id, title, body } = this.state
         ReadableAPI.updatePost({id: id, title: title, body: body}).then((data) => {
             console.log("update post: ", data)
             this.props.editPost({id: id, title: title, body: body})
-            this.props.history.push('/react')
+            this.props.history.push('/' + category)
         })
     }
 
@@ -82,7 +83,7 @@ class PostEdit extends Component {
     }
 
     render() {
-        const id = this.props.match.params.id
+
         return (
             <div>
                 <TextField
