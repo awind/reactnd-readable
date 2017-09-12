@@ -3,6 +3,8 @@ import * as ReadableAPI from '../utils/ReadableAPI'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { uuid } from '../utils/Helpers'
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
 import * as actionCreators from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -12,7 +14,8 @@ class PostEdit extends Component {
     state = {
         id: "", 
         title: "",
-        body: ""
+        body: "",
+        category: "",
     }
 
     componentDidMount() {
@@ -29,17 +32,17 @@ class PostEdit extends Component {
         }
     }
 
-    handleTitleInputChange =(e) => {
-        this.setState({title: e.target.value})
-    }
-
-    handleBodyInputChange = (e) => {
-        this.setState({body: e.target.value})
+    handleInput = (e) => {
+        const { id, value } = e.target
+        if(id === 'title') {
+            this.setState({title: value})
+        } else if (id === 'body') {
+            this.setState({body: value})
+        } 
     }
 
     handleAddPost = () => {
-        const category = this.props.match.params.category
-        const { title, body } = this.state
+        const { title, body, category } = this.state
         const id = uuid(22, 20)
         const timestamp = Date.now()
         ReadableAPI.addPost({id: id, 
@@ -63,8 +66,7 @@ class PostEdit extends Component {
     }
 
     handleUpdatePost = () => {
-        const category = this.props.match.params.category
-        const { id, title, body } = this.state
+        const { id, title, body, category } = this.state
         ReadableAPI.updatePost({id: id, title: title, body: body}).then((data) => {
             console.log("update post: ", data)
             this.props.editPost({id: id, title: title, body: body})
@@ -82,8 +84,19 @@ class PostEdit extends Component {
         }
     }
 
-    render() {
+    handleCategoryChange = (val) => {
+        console.log("selected: " + JSON.stringify(val))
+        this.setState({category: val.value})
+    }
 
+    render() {
+        const categories = this.props.categories
+        var options = []
+        categories.forEach(item => {
+            console.log(item)
+            options.push({value: item.name, label: item.name})
+        })
+        
         return (
             <div>
                 <TextField
@@ -91,7 +104,7 @@ class PostEdit extends Component {
                     label="Title"
                     margin="normal"
                     value={this.state.title}
-                    onChange={this.handleTitleInputChange}
+                    onChange={this.handleInput}
                     fullWidth
                 />
 
@@ -100,11 +113,22 @@ class PostEdit extends Component {
                     label="Body"
                     margin="normal"
                     value={this.state.body}
-                    onChange={this.handleBodyInputChange}
+                    onChange={this.handleInput}
                     fullWidth
                     multiline
                     rows="10"
-            />
+                />
+
+                
+
+                <Select
+                    className="category-select"
+                    name="form-field-name"
+                    value={this.state.category}
+                    options={options}
+                    clearable={false}
+                    onChange={this.handleCategoryChange}
+                />
 
                 <Button raised color="primary" className="button" onClick={this.handleDone}>
                     Done
@@ -116,7 +140,8 @@ class PostEdit extends Component {
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts
+        posts: state.posts,
+        categories: state.categories,
     }
 }
 

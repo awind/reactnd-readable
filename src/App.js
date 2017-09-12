@@ -10,10 +10,10 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path='/' component={Main}></Route>
+        <Route exact path='/add' component={PostEdit}></Route>
         <Route exact path='/:category' component={Main}></Route>
-        <Route exact path='/:category/add' component={PostEdit}></Route>
-        <Route exact path='/:category/detail/:id' component={PostDetail}></Route>
-        <Route exact path='/:category/edit/:id' component={PostEdit}></Route>
+        <Route exact path='/detail/:id' component={PostDetail}></Route>
+        <Route exact path='/edit/:id' component={PostEdit}></Route>
       </Switch>
     )
   }

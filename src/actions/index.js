@@ -53,14 +53,14 @@ export function deletePost(id) {
     }
 }
 
-export function addComment({id, timestamp, body, author, parentId}) {
+export function addComment({id, parentId, author, body, timestamp}) {
     return {
         type: ADD_COMMENT,
         id,
-        timestamp,
-        body,
+        parentId,
         author,
-        parentId
+        body,
+        timestamp,
     }
 }
 

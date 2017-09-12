@@ -37,7 +37,7 @@ class NavigationHeader extends Component {
                         <Typography type="title" color="inherit" className="header-title">
                             {this.props.title}
                         </Typography>
-                        <NavLink className="add-link" to={`/${this.props.title}/add`}><Button color="contrast">Add Post</Button></NavLink>
+                        <NavLink className="add-link" to="/add"><Button color="contrast">Add Post</Button></NavLink>
                     </Toolbar>
                 </AppBar>
 

@@ -38,7 +38,7 @@ export const updatePost = ({id, title, body}) =>
         method: 'PUT',
         body: JSON.stringify({title, body})
     })
-        .then(res => res.json())
+        .then(res => res)
 
 // Sets the deleted flag for a post to 'true'.
 // Sets the parentDeleted flag for all child comments to 'true'.
@@ -74,7 +74,7 @@ export const getPostComments = (id) =>
         .then(res => res.json())
 
 // Add a comment to a post
-export const addPostComment = (id, timestamp, body, author, parentId) =>
+export const addPostComment = ({id, timestamp, body, author, parentId}) =>
     fetch(`${api}/comments`, {
         ...authorizationHeader,
         method: 'POST',
