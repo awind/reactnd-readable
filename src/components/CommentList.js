@@ -3,7 +3,7 @@ import * as actionCreators from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
-import { uuid } from '../utils/Helpers'
+import { uuid, timeConverter } from '../utils/Helpers'
 
 class CommentList extends Component {
 
@@ -48,6 +48,7 @@ class CommentList extends Component {
         const comments = this.props.comments.filter(item => {
             return item.parentId === id
         })
+        
         return (
             <div>
                 <div className="textarea-container">
@@ -56,7 +57,7 @@ class CommentList extends Component {
                     <button type="submit" className="comment-submit" onClick={this.handleSubmitComment}>Submit</button>
                 </div>
 
-                {
+                {   
                     comments.map((item, index) => {
                         return (
                             <div key={index}>
@@ -68,7 +69,7 @@ class CommentList extends Component {
                                 </p>
                                 <div className="info">
                                     <span className="floor">#{index + 1}</span>
-                                    <span className="time">2017-09-10</span>
+                                    <span className="time">{timeConverter(item.timestamp)}</span>
                                     <span className="score">{item.voteScore}</span>
                                     <a><span className="editPost">edit</span></a>
                                     <a><span onClick={() => this.handleDeleteComment(item)} className="editPost">delete</span></a>

@@ -24,6 +24,7 @@ class Main extends Component {
 
     componentDidMount () {
         const match = this.props.match.params.category
+        this.fetchPost(match)
         // Progress
         ReadableAPI.getCategories().then(data => {
             console.log(data)
@@ -45,7 +46,7 @@ class Main extends Component {
         return (
             <div className="App">
                 <NavigationHeader title={category} categories={this.props.categories} />
-                <PostList posts={posts} category={category}/>
+                <PostList posts={posts}/>
           </div>
         )
     }

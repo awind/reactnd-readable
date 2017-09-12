@@ -27,7 +27,7 @@ class PostEdit extends Component {
             if(posts.length > 0) {
                 console.log(posts[0])
                 const post = posts[0]
-                this.setState({id: post.id, title: post.title, body: post.body})
+                this.setState({id: post.id, title: post.title, body: post.body, category: post.category})
             }
         }
     }
@@ -92,8 +92,7 @@ class PostEdit extends Component {
     render() {
         const categories = this.props.categories
         var options = []
-        categories.forEach(item => {
-            console.log(item)
+        categories.forEach((item, index) => {
             options.push({value: item.name, label: item.name})
         })
         

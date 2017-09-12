@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import CommentList from './CommentList'
-
+import {timeConverter} from '../utils/Helpers'
 
 class PostDetail extends Component {
 
@@ -23,6 +23,8 @@ class PostDetail extends Component {
         const post = this.props.posts.filter((item) => {
             return item.id === match
         })[0]
+
+        const date = timeConverter(post.timestamp)
         return (
             <div>
                 { post && <div className="box">
@@ -30,10 +32,10 @@ class PostDetail extends Component {
                             <h1>{post.title}</h1>
 
                             <div className="info">
-                                <span className="floor">{post.author}</span>
-                                <span className="time">2017-09-10</span>
-                                <span className="score">{post.voteScore}</span>
-                                <NavLink className="editPost" to={`/${category}/edit/${post.id}`}>Edit</NavLink>
+                                <span className="floor">author: {post.author}</span>
+                                <span className="time">created time: {date}</span>
+                                <span className="score">score: {post.voteScore}</span>
+                                <NavLink className="editPost" to={`/edit/${post.id}`}>Edit</NavLink>
                             </div>
 
                             <p>{post.body}</p>
