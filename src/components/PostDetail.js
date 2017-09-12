@@ -19,12 +19,10 @@ class PostDetail extends Component {
             })
         })
 
-        const category = this.props.match.params.category
         const post = this.props.posts.filter((item) => {
             return item.id === match
         })[0]
 
-        const date = timeConverter(post.timestamp)
         return (
             <div>
                 { post && <div className="box">
@@ -33,7 +31,7 @@ class PostDetail extends Component {
 
                             <div className="info">
                                 <span className="floor">author: {post.author}</span>
-                                <span className="time">created time: {date}</span>
+                                <span className="time">created time: {timeConverter(post.timestamp)}</span>
                                 <span className="score">score: {post.voteScore}</span>
                                 <NavLink className="editPost" to={`/edit/${post.id}`}>Edit</NavLink>
                             </div>

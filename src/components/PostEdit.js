@@ -52,6 +52,7 @@ class PostEdit extends Component {
             author: "ppp", 
             category: category }
         ).then((data) => {
+            console.log(data)
             this.props.addPost({id: id,
                 timestamp: timestamp,
                 title: title,

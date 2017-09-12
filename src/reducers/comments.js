@@ -1,7 +1,7 @@
 import { ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from '../actions'
 
 function comments(state = [], action) {
-    const { id, parentId, author, body, timestamp, parentDeleted} = action
+    const { id, parentId, author, body, timestamp} = action
     switch(action.type) {
         case ADD_COMMENT:
         const filterComments = state.filter((item) => {

@@ -11,6 +11,7 @@ class Main extends Component {
 
     fetchPost = (category) => {
         ReadableAPI.getCategoryPosts(category).then(data => {
+            console.log(data)
             data.forEach((item) => {
                 this.props.addPost(item)
             })

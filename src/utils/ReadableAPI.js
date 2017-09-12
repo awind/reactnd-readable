@@ -1,5 +1,6 @@
 const api = "http://localhost:5001"
-const authorizationHeader = { headers: { 'Authorization': '123456'}}
+const authorization = { 'Authorization': '123456'}
+const authorizationHeader = { headers: authorization}
 
 
 //  ---------------  Category  -------------------
@@ -23,19 +24,27 @@ export const getAllPosts = () =>
         .then(res => res.json())
 
 // Add a new post
-export const addPost = ({id, timestamp, title, body, author, category}) => 
+export const addPost = (post) => 
     fetch(`${api}/posts`, { 
-        ...authorizationHeader,
         method: 'POST',
-        body: JSON.stringify({id, timestamp, title, body, author, category})
+        headers: new Headers({
+            ...authorization,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({id: post.id, timestamp: post.timestamp, title: post.title, body: post.body, author: post.author, category: post.category})
     })
         .then(res => res.json())
 
 // Edit the details of an existing post
 export const updatePost = ({id, title, body}) =>
     fetch(`${api}/posts/${id}`, {
-        ...authorizationHeader,
         method: 'PUT',
+        headers: new Headers({
+            ...authorization,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }),
         body: JSON.stringify({title, body})
     })
         .then(res => res)
@@ -44,8 +53,12 @@ export const updatePost = ({id, title, body}) =>
 // Sets the parentDeleted flag for all child comments to 'true'.
 export const deletePost = (id) => 
     fetch(`${api}/posts/${id}`, {
-        ...authorizationHeader,
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: new Headers({
+            ...authorization,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }),
     })
         .then(res => res.json())
 
@@ -58,8 +71,12 @@ export const getPostDetail = (id) =>
 // params: options -> upVote/downVote
 export const votePost = (id, options) =>
     fetch(`${api}/posts/${id}`, {
-        ...authorizationHeader,
         method: 'POST',
+        headers: new Headers({
+            ...authorization,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }),
         body: JSON.stringify({options})
     })
         .then(res => res.json())
@@ -74,11 +91,15 @@ export const getPostComments = (id) =>
         .then(res => res.json())
 
 // Add a comment to a post
-export const addPostComment = ({id, timestamp, body, author, parentId}) =>
+export const addPostComment = (comment) =>
     fetch(`${api}/comments`, {
-        ...authorizationHeader,
         method: 'POST',
-        body: JSON.stringify({id, timestamp, body, author, parentId})
+        headers: new Headers({
+            ...authorization,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({id: comment.id, timestamp: comment.timestamp, body: comment.body, author: comment.author, parentId: comment.parentId})
     })
         .then(res => res.json())
 
@@ -91,16 +112,24 @@ export const getCommentDetail = (id) =>
 // Used for voting on a comment
 export const voteComment = (id) => 
     fetch(`${api}/comments/${id}`, {
-        ...authorizationHeader,
         method: 'POST',
+        headers: new Headers({
+            ...authorization,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }),
     })
         .then(res => res.json())
 
 // Edit the details of an existing comment
 export const editComment = (id, timestamp, body) =>
     fetch(`${api}/comments/${id}`, {
-        ...authorizationHeader,
         method: 'PUT',
+        headers: new Headers({
+            ...authorization,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }),
         body: JSON.stringify({timestamp, body})
     })
         .then(res => res.json())
@@ -108,7 +137,11 @@ export const editComment = (id, timestamp, body) =>
 // Sets a comments's deleted flag to true
 export const deleteComment = (id) => 
     fetch(`${api}/comments/${id}`, {
-        ...authorizationHeader,
         method: 'DELETE',
+        headers: new Headers({
+            ...authorization,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }),
     })
         .then(res => res.json())
