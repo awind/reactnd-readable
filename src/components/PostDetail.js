@@ -12,7 +12,7 @@ class PostDetail extends Component {
 
     render() {
         const match = this.props.match.params.id
-
+        console.log("match:  ", match)
         ReadableAPI.getPostComments(match).then((data) => {
             data.forEach(item => {
                 this.props.addComment(item)

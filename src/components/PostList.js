@@ -1,39 +1,30 @@
 import React, { Component } from 'react'
-import Card, { CardActions, CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
 import { NavLink } from 'react-router-dom'
+import {timeConverter} from '../utils/Helpers'
 
 class PostList extends Component {
 
     render() {
         const posts = this.props.posts
         return (
-            <div>
-                { posts.map((item, index) => {
-                    return (
-                        <div key={index}>
-                            <Card className="card">
-                                <CardContent>
-                                    <Typography type="headline" component="h2">
-                                        {item.title}
-                                    </Typography>
-                                    <Typography type="body1">
-                                        {item.author}
-                                    </Typography>
-                                    <Typography type="body2">
-                                        {item.body}
-                                    </Typography>
-                                </CardContent>
-                                <NavLink className="read-post-link" to={`/detail/${item.id}`}>
-                                    <CardActions>
-                                        <Button dense>Read More...</Button>
-                                    </CardActions>
-                                </NavLink>
-                            </Card>
-                      </div>
-                    )
-                })}
+            <div className="gank-list">
+                <table><tbody><tr>
+                    { posts && posts.map((item, index) => {
+                        return (
+                            <td className='gank-list-item' key={index}>
+                                <div className='gank-details'>
+                                    <NavLink to={`/detail/${item.id}`}>
+                                        <span className="item-index">{index + 1}.</span>
+                                        <span className="post-title">{item.title}</span>
+                                        <span className="author">({item.author})</span>
+                                        <p className="author">created: {timeConverter(item.timestamp)}</p>
+                                    </NavLink>
+                                </div>
+                        </td>
+                                
+                        )
+                    })}
+                </tr></tbody></table>
             </div>
         )
     }

@@ -69,7 +69,6 @@ class PostEdit extends Component {
     handleUpdatePost = () => {
         const { id, title, body, category } = this.state
         ReadableAPI.updatePost({id: id, title: title, body: body}).then((data) => {
-            console.log("update post: ", data)
             this.props.editPost({id: id, title: title, body: body})
             this.props.history.push('/' + category)
         })

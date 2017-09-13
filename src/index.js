@@ -21,7 +21,7 @@ const store = createStore(
     rootReducer,
     defaultStore,
     composeEnhancers(
-        applyMiddleware(logger)
+        // applyMiddleware(logger)
     )
 )
 

@@ -1,22 +1,66 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Main from './components/Main'
+import MainPage from './components/MainPage'
+import CategoryPage from './components/CategoryPage'
 import PostDetail from './components/PostDetail'
 import PostEdit from './components/PostEdit'
+import * as ReadableAPI from './utils/ReadableAPI'
+import NavigationHeader from './components/NavigationHeader'
+import * as actionCreators from './actions'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 class App extends Component {
 
+  componentDidMount() {
+    ReadableAPI.getCategories().then(data => {
+      data.forEach((item) => {
+          this.props.addCategory({name: item.name, path: item.path})
+      })
+    })
+
+    // GET ALL POSTS???
+    ReadableAPI.getAllPosts().then(data => {
+      data.forEach((item) => {
+        this.props.addPost(item)
+      })
+    })
+  }
+
   render() {
     return (
-      <Switch>
-        <Route exact path='/' component={Main}></Route>
-        <Route exact path='/add' component={PostEdit}></Route>
-        <Route exact path='/:category' component={Main}></Route>
-        <Route exact path='/detail/:id' component={PostDetail}></Route>
-        <Route exact path='/edit/:id' component={PostEdit}></Route>
-      </Switch>
+      <div className="App">
+        <NavigationHeader categories={this.props.categories} />
+
+        <Switch>
+          <Route exact path='/' component={() => (
+            <MainPage posts={this.props.posts} />
+          )}></Route>
+
+          <Route exact path='/add' component={PostEdit}></Route>
+          
+          <Route exact path='/:category' render={() => (
+            <CategoryPage posts={this.props.posts} />
+          )}></Route>
+          
+          <Route exact path='/detail/:id' component={PostDetail}></Route>
+          <Route exact path='/edit/:id' component={PostEdit}></Route>
+        </Switch>
+      </div>
     )
   }
 }
 
-export default App
+function mapStateToProps(state) {
+  return {
+    categories: state.categories,
+    posts: state.posts,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

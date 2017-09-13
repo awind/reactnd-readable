@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { uuid, timeConverter } from '../utils/Helpers'
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
 
 class CommentList extends Component {
 
@@ -36,10 +38,13 @@ class CommentList extends Component {
             })
     }
 
+    handleSortChange = () => {
+
+    }
+
     handleDeleteComment = (item) => {
-        console.log(item)
         ReadableAPI.deleteComment(item.id).then(data => {
-            console.log(data)
+            this.props.deleteComment(item.id)
         })
     }
 
@@ -48,9 +53,24 @@ class CommentList extends Component {
         const comments = this.props.comments.filter(item => {
             return item.parentId === id
         })
+
+        const options = [
+            {label: "by timestamp", value: "timestamp"},
+            {label: "by score", value: "score"}
+        ]
         
         return (
             <div>
+
+                <Select
+                    className="category-select"
+                    name="form-field-name"
+                    value="timestamp"
+                    options={options}
+                    clearable={false}
+                    onChange={this.handleSortChange}
+                />
+
                 <div className="textarea-container">
                     <input type="text" value={this.state.inputAuthor} className="input-author" onChange={this.handleAuthorChange} placeholder="Please input you name"></input>
                     <textarea cols="80" value={this.state.inputComment} name="msg" rows="5" onChange={this.handleCommentChange} className="ipt-text"></textarea>

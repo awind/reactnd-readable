@@ -139,7 +139,7 @@ span {
 
 .textarea-container {
   position: relative;
-  margin-left: 20px;
+  margin-left: 2px;
   margin-right: 100px;
   margin-top: 8px;
 }
@@ -200,4 +200,138 @@ textarea {
 
 .category-select {
   margin-top: 4px;
+}
+
+
+.App-header {
+  background-color: #ff6600;
+  height: 16px;
+  line-height: 16px;
+  padding: 20px;
+  display:flex;
+  align-items: center;
+}
+
+.float-button {
+  margin: 20px;
+  display: flex;
+}
+
+.pagetop {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 10pt;
+    color: rgb(34, 34, 34);
+}
+
+.gankname {
+    margin-right: 5px;
+}
+
+strong, b {
+    font-weight: bold;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+}
+
+.gank-list {
+  margin-bottom: 0px;
+  padding: 0;
+  background-color: #f6f6ef;
+}
+
+.gank-list-item {
+  padding-top: 8px;
+  display: flex;
+}
+
+@media (min-width: 600px) {
+  .gank-list-item {
+    margin: 0px;
+  }
+}
+
+.gank-details {
+  padding-left: 20px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gank-details p {
+  margin: 0;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.author {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 8pt;
+  color: rgb(130, 130, 130);
+  margin-left: 2px;
+}
+
+.item-index {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  color: rgb(130, 130, 130);
+}
+
+.post-title {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12pt;
+  color: black;
+}
+
+.active-link {
+  color: white;
+}
+
+.topsel a:link, .topsel a:visited .header-link:visited .header-link:link {
+    color: rgb(255, 255, 255);
+}
+
+.pagetop a:visited {
+    color: rgb(0, 0, 0);
+}
+
+a:visited {
+    color: rgb(130, 130, 130);
+    text-decoration: none;
+}
+
+a:link {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.add-post {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+}
+
+.add-post a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ff6600;
+  background-image: url('../icons/add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  font-size: 0;
 }
