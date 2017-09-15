@@ -1,5 +1,8 @@
-// export const ORDER_BY_SCORE = 'ORDER_BY_SCORE'
-// export const ORDER_BY_TIMESTAMP = 'ORDER_BY_TIMESTAMP'
+export const POST_ORDER_BY_SCORE = 'POST_ORDER_BY_SCORE'
+export const POST_ORDER_BY_TIMESTAMP = 'POST_ORDER_BY_TIMESTAMP'
+
+export const COMMENT_ORDER_BY_SOCRE = 'COMMENT_ORDER_BY_SCORE'
+export const COMMENT_ORDER_BY_TIMESTAMP = 'COMMENT_ORDER_BY_TIMESTAMP'
 
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
@@ -11,17 +14,29 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export const ADD_CATEGORY = 'ADD_CATEGORY'
 
-// export function orderByScore() {
-//     return {
-//         type: ORDER_BY_SCORE,
-//     }
-// }
+export function postsOrderByScore() {
+    return {
+        type: POST_ORDER_BY_SCORE
+    }
+}
 
-// export function orderByTimestamp() {
-//     return {
-//         type: ORDER_BY_TIMESTAMP
-//     }
-// }
+export function postsOrderByTimestamp() {
+    return {
+        type: POST_ORDER_BY_TIMESTAMP
+    }
+}
+
+export function commentsOrderByScore() {
+    return {
+        type: COMMENT_ORDER_BY_SOCRE
+    }
+}
+
+export function commentsOrderByTimestamp() {
+    return {
+        type: COMMENT_ORDER_BY_TIMESTAMP
+    }
+}
 
 export function addPost({id, timestamp, title, body, author, category, voteScore, deleted}) {
     return {
@@ -53,7 +68,7 @@ export function deletePost(id) {
     }
 }
 
-export function addComment({id, parentId, author, body, timestamp}) {
+export function addComment({id, parentId, author, body, timestamp, voteScore}) {
     return {
         type: ADD_COMMENT,
         id,
@@ -61,6 +76,7 @@ export function addComment({id, parentId, author, body, timestamp}) {
         author,
         body,
         timestamp,
+        voteScore,
     }
 }
 

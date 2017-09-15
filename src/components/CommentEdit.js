@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import * as ReadableAPI from '../utils/ReadableAPI'
-import { uuid } from '../utils/Helpers'
 import * as actionCreators from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
