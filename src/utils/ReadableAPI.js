@@ -122,7 +122,7 @@ export const voteComment = (id) =>
         .then(res => res.json())
 
 // Edit the details of an existing comment
-export const editComment = (id, timestamp, body) =>
+export const editComment = ({id, timestamp, body}) => 
     fetch(`${api}/comments/${id}`, {
         method: 'PUT',
         headers: new Headers({

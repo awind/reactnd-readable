@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import '../css/App.css'
 import PostList from './PostList'
-import * as ReadableAPI from '../utils/ReadableAPI'
-import { connect } from 'react-redux'
-import * as actionCreators from '../actions'
-import { bindActionCreators } from 'redux'
 import NewPostBtn from './NewPostBtn'
 
 class MainPage extends Component {

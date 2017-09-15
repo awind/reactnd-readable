@@ -3,41 +3,24 @@ import * as actionCreators from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
-import { uuid, timeConverter } from '../utils/Helpers'
-import Select from 'react-select'
-import 'react-select/dist/react-select.css'
+import { timeConverter } from '../utils/Helpers'
+import Modal from 'react-modal'
+import { NavLink } from 'react-router-dom'
 
 class CommentList extends Component {
 
     state = {
-        inputAuthor: "",
-        inputComment: "",
+        commentModalOpen: false,
     }
 
-    handleAuthorChange = (e) => {
-        this.setState({inputAuthor: e.target.value})
+    openCommentModal = () => {
+        this.setState({commentModalOpen: true})
     }
 
-    handleCommentChange = (e) => {
-        this.setState({inputComment: e.target.value})
+    closeCommentModal = () => {
+        this.setState({commentModalOpen: false})
     }
-
-    handleSubmitComment = () => {
-        const parentId = this.props.id
-        const author = this.state.inputAuthor
-        const body = this.state.inputComment
-        const id = uuid(22, 20)
-        const timestamp = Date.now()
-
-        ReadableAPI.addPostComment({id: id, timestamp: timestamp, author: author,
-            body: body, parentId: parentId}).then(data => {
-                console.log(data)
-                this.setState({inputAuthor: "", inputComment: ""})
-                this.props.addComment({id: id, timestamp: timestamp, author: author,
-                    body: body, parentId: parentId})
-            })
-    }
-
+ 
     handleSortChange = () => {
 
     }
@@ -48,37 +31,19 @@ class CommentList extends Component {
         })
     }
 
+    handleUpdateComment = (body) => {
+        // ReadableAPI.editComment
+    }
+
     render() {
         const id = this.props.id
         const comments = this.props.comments.filter(item => {
             return item.parentId === id
         })
-
-        const options = [
-            {label: "by timestamp", value: "timestamp"},
-            {label: "by score", value: "score"}
-        ]
         
         return (
             <div>
-
-                <Select
-                    className="category-select"
-                    name="form-field-name"
-                    value="timestamp"
-                    options={options}
-                    clearable={false}
-                    onChange={this.handleSortChange}
-                />
-
-                <div className="textarea-container">
-                    <input type="text" value={this.state.inputAuthor} className="input-author" onChange={this.handleAuthorChange} placeholder="Please input you name"></input>
-                    <textarea cols="80" value={this.state.inputComment} name="msg" rows="5" onChange={this.handleCommentChange} className="ipt-text"></textarea>
-                    <button type="submit" className="comment-submit" onClick={this.handleSubmitComment}>Submit</button>
-                </div>
-
-                {   
-                    comments.map((item, index) => {
+                {  comments.map((item, index) => {
                         return (
                             <div key={index}>
                                 <div className="user">
@@ -91,13 +56,34 @@ class CommentList extends Component {
                                     <span className="floor">#{index + 1}</span>
                                     <span className="time">{timeConverter(item.timestamp)}</span>
                                     <span className="score">{item.voteScore}</span>
-                                    <a><span className="editPost">edit</span></a>
+                                    <span className="editPost"><NavLink to={`/editcomment/${item.id}`}>edit</NavLink></span>
                                     <a><span onClick={() => this.handleDeleteComment(item)} className="editPost">delete</span></a>
                                 </div>
                             </div>
                         )
                     })
                 }
+
+                <Modal
+                    className="modal"
+                    overlayClassName="overlay"
+                    isOpen={this.state.commentModalOpen}
+                    onRequestClose={this.closeCommentModal}
+                    contentLabel="Modal"
+                >
+                    <div className="textarea-container">
+                        <form onSubmit={(e) => {
+                            e.preventDefault()
+
+                        }}>
+                            <input id="author" type="text" className="input-author" placeholder="Please input you name" ref={(author) => this.author = author}></input>
+                            <textarea id="body" cols="80" rows="5" className="ipt-text" ref={(body) => this.body = body}></textarea>
+                            <button type="submit" className="edit-comment-submit">Submit</button>
+                        </form>
+                    </div>
+
+                </Modal>
+                
             </div>
         )
     }

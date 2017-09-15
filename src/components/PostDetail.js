@@ -4,15 +4,15 @@ import * as actionCreators from '../actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
+import Select from 'react-select'
 import CommentList from './CommentList'
+import CommentBox from './CommentBox'
 import {timeConverter} from '../utils/Helpers'
 
 class PostDetail extends Component {
 
-
     render() {
         const match = this.props.match.params.id
-        console.log("match:  ", match)
         ReadableAPI.getPostComments(match).then((data) => {
             data.forEach(item => {
                 this.props.addComment(item)
@@ -22,6 +22,11 @@ class PostDetail extends Component {
         const post = this.props.posts.filter((item) => {
             return item.id === match
         })[0]
+
+        const options = [
+            {label: "by timestamp", value: "timestamp"},
+            {label: "by score", value: "score"}
+        ]
 
         return (
             <div>
@@ -33,14 +38,26 @@ class PostDetail extends Component {
                                 <span className="floor">author: {post.author}</span>
                                 <span className="time">created time: {timeConverter(post.timestamp)}</span>
                                 <span className="score">score: {post.voteScore}</span>
-                                <NavLink className="editPost" to={`/edit/${post.id}`}>Edit</NavLink>
+                                <NavLink className="editPost" to={`/editpost/${post.id}`}>Edit</NavLink>
                             </div>
 
                             <p>{post.body}</p>
                             
                         </div>
 
+                        <Select
+                            className="category-select"
+                            name="form-field-name"
+                            value="timestamp"
+                            options={options}
+                            clearable={false}
+                            onChange={this.handleSortChange}
+                        />
+    
+                        <CommentBox id={post.id} addComment={this.props.addComment} />
+
                         <CommentList id={post.id} />
+
                     </div>
                 }
             </div>

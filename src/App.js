@@ -10,6 +10,7 @@ import * as actionCreators from './actions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import CommentEdit from './components/CommentEdit'
 
 class App extends Component {
 
@@ -45,7 +46,8 @@ class App extends Component {
           )}></Route>
           
           <Route exact path='/detail/:id' component={PostDetail}></Route>
-          <Route exact path='/edit/:id' component={PostEdit}></Route>
+          <Route exact path='/editpost/:id' component={PostEdit}></Route>
+          <Route exact path='/editcomment/:id' component={CommentEdit}></Route>
         </Switch>
       </div>
     )
