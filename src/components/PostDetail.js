@@ -10,17 +10,56 @@ import {timeConverter} from '../utils/Helpers'
 
 class PostDetail extends Component {
 
-    state = {
-        sortBy: "timestamp"
+    handleSortChange = (e) => {
+        const sortBy = e.target.value
+        if(sortBy === 'timestamp') {
+            console.log(sortBy)
+            this.props.commentsOrderByTimestamp()
+        } else if (sortBy === 'score') {
+            console.log(sortBy)
+            this.props.commentsOrderByScore()
+        }
     }
 
-    handleSortChange = (e) => {
-        this.setState({sortBy: e.target.value})
+    handleDeletePost = (item) => {
+        ReadableAPI.deletePost(item.id).then((data) => {
+            console.log(data)
+            this.props.deletePost(item.id)
+            this.props.history.goBack()
+        })
     }
 
     handleDeleteComment = (item) => {
         ReadableAPI.deleteComment(item.id).then(data => {
             this.props.deleteComment(item.id)
+        })
+    }
+
+    handleUpVote = (item) => {
+        ReadableAPI.votePost({id: item.id, option: 'upVote'}).then(data => {
+            console.log(data)
+            this.props.upVotePost(item.id)
+        })
+    }
+
+    handleDownVote = (item) => {
+        ReadableAPI.votePost({id: item.id, option: 'downVote'}).then(data => {
+            console.log(data)
+            this.props.downVotePost(item.id)
+        })
+    }
+
+    handleUpComment = (item) => {
+        ReadableAPI.voteComment({id: item.id, option: 'upVote'}).then(data => {
+            console.log(data)
+            this.props.upVoteComment(item.id)
+        })
+    }
+
+    handleDownComment = (item) => {
+        ReadableAPI.voteComment({id: item.id, option: 'downVote'}).then(data => {
+            console.log(data)
+            this.props.downVoteComment(item.id)
         })
     }
 
@@ -38,6 +77,7 @@ class PostDetail extends Component {
         const post = this.props.posts.filter((item) => {
             return item.id === match
         })[0]
+
         return (
             <div>
                 { post && <div className="box">
@@ -49,6 +89,9 @@ class PostDetail extends Component {
                             <span className="time">created time: {timeConverter(post.timestamp)}</span>
                             <span className="score">score: {post.voteScore}</span>
                             <NavLink className="editPost" to={`/editpost/${post.id}`}>Edit</NavLink>
+                            <span className="action-span" onClick={(e) => {this.handleDeletePost(post)}}>Delete</span>
+                            <span className="action-span" onClick={(e) => {this.handleUpVote(post)}}>up vote</span>
+                            <span className="action-span" onClick={(e) => {this.handleDownVote(post)}}>down vote</span>
                         </div>
 
                         <p>{post.body}</p>
@@ -62,7 +105,7 @@ class PostDetail extends Component {
 
                     <CommentBox id={post.id} addComment={this.props.addComment} />
 
-                    <CommentList id={post.id} comments={this.props.comments} sortBy={this.state.sortBy} deleteComment={this.handleDeleteComment} />
+                    <CommentList id={post.id} comments={this.props.comments} deleteComment={this.handleDeleteComment} upVote={this.handleUpComment} downVote={this.handleDownComment} />
 
                     </div>
                 }

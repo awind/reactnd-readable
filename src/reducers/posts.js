@@ -1,4 +1,4 @@
-import { ADD_POST, EDIT_POST, DELETE_POST, POST_ORDER_BY_SCORE, POST_ORDER_BY_TIMESTAMP } from '../actions'
+import { ADD_POST, EDIT_POST, DELETE_POST, POST_ORDER_BY_SCORE, POST_ORDER_BY_TIMESTAMP, UP_VOTE_POST, DOWN_VOTE_POST } from '../actions'
 
 function posts(state = [], action) {
     const {id, timestamp, title, body, author, category, voteScore, deleted} = action
@@ -36,17 +36,37 @@ function posts(state = [], action) {
             return state.filter((item) => {
                 return item.id !== id
             })
+        case UP_VOTE_POST:
+            return state.map((item) => {
+                if(item.id === id) {
+                    return {
+                        ...item,
+                        voteScore: parseInt(item.voteScore) + 1
+                    }
+                }
+                return item
+            })
+        case DOWN_VOTE_POST:
+            return state.map((item) => {
+                if(item.id === id) {
+                    return {
+                        ...item,
+                        voteScore: parseInt(item.voteScore) - 1
+                    }
+                }
+                return item
+            })
         case POST_ORDER_BY_SCORE:
-            return state.sort((item1, item2) => {
-                return item1.voteScore >=  item2.voteScore
+            return state.concat().sort((item1, item2) => {
+                return item1.voteScore - item2.voteScore
             })
         case POST_ORDER_BY_TIMESTAMP:
-            return state.sort((item1, item2) => {
-                return item1.timestamp >=  item2.timestamp
+            return state.concat().sort((item1, item2) => {
+                return item1.timestamp - item2.timestamp
             })
         default:
-            return state.sort((item1, item2) => {
-                return item1.timestamp >=  item2.timestamp
+            return state.concat().sort((item1, item2) => {
+                return item1.voteScore - item2.voteScore
             })
     }
 }

@@ -60,7 +60,7 @@ export const deletePost = (id) =>
             'Content-Type': 'application/json'
         }),
     })
-        .then(res => res.json())
+        .then(res => res)
 
 // Get the details of a single post
 export const getPostDetail = (id) => 
@@ -69,7 +69,7 @@ export const getPostDetail = (id) =>
 
 // Used for voting on a post
 // params: options -> upVote/downVote
-export const votePost = (id, options) =>
+export const votePost = ({id, option}) =>
     fetch(`${api}/posts/${id}`, {
         method: 'POST',
         headers: new Headers({
@@ -77,7 +77,7 @@ export const votePost = (id, options) =>
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         }),
-        body: JSON.stringify({options})
+        body: JSON.stringify({option})
     })
         .then(res => res.json())
 
@@ -110,7 +110,7 @@ export const getCommentDetail = (id) =>
 
 
 // Used for voting on a comment
-export const voteComment = (id) => 
+export const voteComment = ({id, option}) => 
     fetch(`${api}/comments/${id}`, {
         method: 'POST',
         headers: new Headers({
@@ -118,6 +118,7 @@ export const voteComment = (id) =>
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         }),
+        body: JSON.stringify({option})
     })
         .then(res => res.json())
 

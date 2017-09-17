@@ -1,4 +1,4 @@
-import { ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT, COMMENT_ORDER_BY_SOCRE, COMMENT_ORDER_BY_TIMESTAMP } from '../actions'
+import { ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT, COMMENT_ORDER_BY_SOCRE, COMMENT_ORDER_BY_TIMESTAMP, UP_VOTE_COMMENT, DOWN_VOTE_COMMENT } from '../actions'
 
 function comments(state = [], action) {
     const { id, parentId, author, body, timestamp, voteScore} = action
@@ -33,20 +33,40 @@ function comments(state = [], action) {
                 return item
             })
         case DELETE_COMMENT:
-            return state.filter(item => {
+            return state.filter((item) => {
                 return item.id !== id
             })
+        case UP_VOTE_COMMENT:
+            return state.map((item) => {
+                if(item.id === id) {
+                    return {
+                        ...item, 
+                        voteScore: parseInt(item.voteScore) + 1
+                    }
+                }
+                return item
+            })
+        case DOWN_VOTE_COMMENT:
+            return state.map((item) => {
+                if(item.id === id) {
+                    return {
+                        ...item,
+                        voteScore: parseInt(item.voteScore) - 1
+                    }
+                }
+                return item
+            })
         case COMMENT_ORDER_BY_SOCRE:
-            return state.sort((a, b) => 
-                parseInt(a.voteScore) - parseInt(b.voteScore)
-            )
+            return state.concat().sort((item1, item2) => {
+                return item1.voteScore - item2.voteScore
+            })
         case COMMENT_ORDER_BY_TIMESTAMP:
-            return state.sort((item1, item2) => {
+            return state.concat().sort((item1, item2) => {
                 return item1.timestamp - item2.timestamp
             })
         default:
-            return state.sort((item1, item2) => {
-                return item1.timestamp - item2.timestamp
+            return state.concat().sort((item1, item2) => {
+                return item1.voteScore - item2.voteScore
             })
     }
 }

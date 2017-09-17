@@ -15,6 +15,8 @@ class NavigationHeader extends Component {
                                     <NavLink key={index} activeClassName="active-link" to={`/${item.path}`}>{item.name} | </NavLink>
                                 )
                             })}
+                            <span className="action-span" onClick={this.props.orderByTimestamp}>sort by timestamp | </span>
+                            <span className="action-span" onClick={this.props.orderByScore}>sort by vote score</span>
                     </span>
                 </td></tr></tbody></table>
             </div>

@@ -20,7 +20,7 @@ class PostForm extends Component {
             }}>
             <input
                 type="text"
-                defaultValue={post ? post.title : " "}
+                defaultValue={post ? post.title : ""}
                 placeholder="title"
                 className="input-author"
                 ref={(title) => this.title = title}

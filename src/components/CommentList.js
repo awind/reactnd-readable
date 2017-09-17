@@ -4,18 +4,16 @@ import { NavLink } from 'react-router-dom'
 
 class CommentList extends Component {
 
+    componentWillReceiveProps(props) {
+        console.log(props)
+    }
+
     render() {
         const comments = this.props.comments
-        const sortBy = this.props.sortBy
-        console.log(sortBy)
-        var sortedComments = comments.sort((a, b) => 
-            a.timestamp - b.timestamp
-        )
-        if(sortBy === 'score') {
-            sortedComments = comments.sort((a, b) => 
-                parseInt(a.voteScore) - parseInt(b.voteScore)
-        )}
-        console.log(comments)
+        const parentId = this.props.id
+        const sortedComments = comments.filter(item => {
+            return item.parentId === parentId
+        })
         
         return (
             <div>
@@ -33,7 +31,9 @@ class CommentList extends Component {
                                     <span className="time">{timeConverter(item.timestamp)}</span>
                                     <span className="score">score: {item.voteScore}</span>
                                     <span className="editPost"><NavLink to={`/editcomment/${item.id}`}>edit</NavLink></span>
-                                    <a><span onClick={() => this.props.deleteComment(item)} className="editPost">delete</span></a>
+                                    <a><span onClick={() => this.props.deleteComment(item)} className="action-span">delete</span></a>
+                                    <span className="action-span" onClick={(e) => {this.props.upVote(item)}}>up vote</span>
+                                    <span className="action-span" onClick={(e) => {this.props.downVote(item)}}>down vote</span>
                                 </div>
                             </div>
                         )

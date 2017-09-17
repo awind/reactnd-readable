@@ -5,6 +5,14 @@ import NewPostBtn from './NewPostBtn'
 
 class MainPage extends Component {
 
+    handleSortChange = (e) => {
+        const sortBy = e.target.value
+        if(sortBy === 'timestamp') {
+            this.props.orderByTimestamp()
+        } else if (sortBy === 'score') {
+            this.props.orderByScore()
+        }
+    }
 
     render() {
         return (

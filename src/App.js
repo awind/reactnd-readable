@@ -32,7 +32,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavigationHeader categories={this.props.categories} />
+        <NavigationHeader categories={this.props.categories} orderByScore={this.props.postsOrderByScore} orderByTimestamp={this.props.postsOrderByTimestamp} />
 
         <Switch>
           <Route exact path='/' component={() => (
