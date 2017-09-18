@@ -5,7 +5,9 @@ import {timeConverter} from '../utils/Helpers'
 class PostList extends Component {
 
     render() {
-        const posts = this.props.posts
+        const posts = this.props.posts.filter((item) => {
+            return item.deleted === false
+        })
         return (
             <div className="gank-list">
                 <table><tbody><tr>

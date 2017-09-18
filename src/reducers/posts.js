@@ -41,7 +41,7 @@ function posts(state = [], action) {
                 if(item.id === id) {
                     return {
                         ...item,
-                        voteScore: parseInt(item.voteScore) + 1
+                        voteScore: parseInt(item.voteScore, 10) + 1
                     }
                 }
                 return item
@@ -51,7 +51,7 @@ function posts(state = [], action) {
                 if(item.id === id) {
                     return {
                         ...item,
-                        voteScore: parseInt(item.voteScore) - 1
+                        voteScore: parseInt(item.voteScore, 10) - 1
                     }
                 }
                 return item

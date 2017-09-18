@@ -13,17 +13,14 @@ class PostDetail extends Component {
     handleSortChange = (e) => {
         const sortBy = e.target.value
         if(sortBy === 'timestamp') {
-            console.log(sortBy)
             this.props.commentsOrderByTimestamp()
         } else if (sortBy === 'score') {
-            console.log(sortBy)
             this.props.commentsOrderByScore()
         }
     }
 
     handleDeletePost = (item) => {
         ReadableAPI.deletePost(item.id).then((data) => {
-            console.log(data)
             this.props.deletePost(item.id)
             this.props.history.goBack()
         })

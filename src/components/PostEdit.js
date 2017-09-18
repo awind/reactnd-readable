@@ -13,6 +13,9 @@ class PostEdit extends Component {
         const { title, body, category, author } = post
         const id = uuid(22, 20)
         const timestamp = Date.now()
+        if(!title || title.length === 0) {
+            return
+        }
         ReadableAPI.addPost({id: id, 
             timestamp: timestamp, 
             title: title, 
@@ -37,19 +40,13 @@ class PostEdit extends Component {
     handleUpdatePost = (post) => {
         const id = this.props.match.params.id
         const { title, body, category } = post
+        if(!title || title.length === 0) {
+            return
+        }
         ReadableAPI.updatePost({id: id, title: title, body: body}).then((data) => {
             this.props.editPost({id: id, title: title, body: body})
             this.props.history.push('/' + category)
         })
-    }
-
-    handleDone = (post) => {
-        const id = this.props.match.params.id
-        if(id) {
-            this.handleUpdatePost(post)
-        } else {
-            this.handleAddPost(post)
-        }
     }
 
     render() {
