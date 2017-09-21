@@ -21,6 +21,7 @@ class PostDetail extends Component {
 
     handleDeletePost = (item) => {
         ReadableAPI.deletePost(item.id).then((data) => {
+            console.log(data)
             this.props.deletePost(item.id)
             this.props.history.goBack()
         })
@@ -60,19 +61,10 @@ class PostDetail extends Component {
         })
     }
 
-    componentDidMount() {
-        const match = this.props.match.params.id
-        ReadableAPI.getPostComments(match).then((data) => {
-            data.forEach(item => {
-                this.props.addComment(item)
-            })
-        })
-    }
-
     render() {
         const match = this.props.match.params.id
         const post = this.props.posts.filter((item) => {
-            return item.id === match
+            return item.id === match && !item.deleted
         })[0]
 
         return (
@@ -104,6 +96,11 @@ class PostDetail extends Component {
 
                     <CommentList id={post.id} comments={this.props.comments} deleteComment={this.handleDeleteComment} upVote={this.handleUpComment} downVote={this.handleDownComment} />
 
+                    </div>
+                }
+
+                { !post && <div className="box">
+                        <p>Sorry, we can not find this post, it's maybe already deleted.</p>
                     </div>
                 }
             </div>
