@@ -6,9 +6,15 @@ This project use Redux to manager application state.
 
 ## Installation
 
+
 ```
 git clone https://github.com/awind/reactnd-readable.git
 cd reactnd-readable
+# start back end server
+cd server
+npm start
+# start web client
+cd client
 npm start
 ```
 

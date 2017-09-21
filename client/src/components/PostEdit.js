@@ -23,7 +23,6 @@ class PostEdit extends Component {
             author: author, 
             category: category }
         ).then((data) => {
-            console.log(data)
             this.props.addPost({id: id,
                 timestamp: timestamp,
                 title: title,

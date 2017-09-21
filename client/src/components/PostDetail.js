@@ -21,7 +21,6 @@ class PostDetail extends Component {
 
     handleDeletePost = (item) => {
         ReadableAPI.deletePost(item.id).then((data) => {
-            console.log(data)
             this.props.deletePost(item.id)
             this.props.history.goBack()
         })
@@ -35,28 +34,24 @@ class PostDetail extends Component {
 
     handleUpVote = (item) => {
         ReadableAPI.votePost({id: item.id, option: 'upVote'}).then(data => {
-            console.log(data)
             this.props.upVotePost(item.id)
         })
     }
 
     handleDownVote = (item) => {
         ReadableAPI.votePost({id: item.id, option: 'downVote'}).then(data => {
-            console.log(data)
             this.props.downVotePost(item.id)
         })
     }
 
     handleUpComment = (item) => {
         ReadableAPI.voteComment({id: item.id, option: 'upVote'}).then(data => {
-            console.log(data)
             this.props.upVoteComment(item.id)
         })
     }
 
     handleDownComment = (item) => {
         ReadableAPI.voteComment({id: item.id, option: 'downVote'}).then(data => {
-            console.log(data)
             this.props.downVoteComment(item.id)
         })
     }

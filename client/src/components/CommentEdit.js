@@ -11,7 +11,6 @@ class CommentEdit extends Component {
         const id = this.props.match.params.id
         const timestamp = Date.now()
         ReadableAPI.editComment({id: id, timestamp: timestamp, body: body}).then(data => {
-            console.log(data)
             this.props.editComment({id: id, timestamp: timestamp, body: body})
             this.props.history.goBack()
         })

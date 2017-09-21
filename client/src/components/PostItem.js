@@ -10,31 +10,26 @@ class PostItem extends Component {
 
     handleUpVote = (item) => {
         ReadableAPI.votePost({id: item.id, option: 'upVote'}).then(data => {
-            console.log(data)
             this.props.upVotePost(item.id)
         })
     }
 
     handleDownVote = (item) => {
         ReadableAPI.votePost({id: item.id, option: 'downVote'}).then(data => {
-            console.log(data)
             this.props.downVotePost(item.id)
         })
     }
 
     handleDeletePost = (item) => {
         ReadableAPI.deletePost(item.id).then((data) => {
-            console.log(data)
             this.props.deletePost(item.id)
         })
     }
 
     componentDidMount() {
         const post = this.props.item
-        console.log(post)
         if(this.props.comments.length === 0) {
             ReadableAPI.getPostComments(post.id).then((data) => {
-                console.log(data)
                 data.forEach(commentItem => {
                     this.props.addComment(commentItem)
                 })

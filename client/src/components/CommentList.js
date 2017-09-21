@@ -4,10 +4,6 @@ import { NavLink } from 'react-router-dom'
 
 class CommentList extends Component {
 
-    componentWillReceiveProps(props) {
-        console.log(props)
-    }
-
     render() {
         const comments = this.props.comments
         const parentId = this.props.id
