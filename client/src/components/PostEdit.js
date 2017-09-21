@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { uuid } from '../utils/Helpers'
 import 'react-select/dist/react-select.css'
-import * as actionCreators from '../actions'
-import { bindActionCreators } from 'redux'
+import { addPost, editPost } from '../actions'
 import { connect } from 'react-redux'
 import PostForm from './PostForm'
 
@@ -62,15 +61,10 @@ class PostEdit extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({posts, categories}) {
     return {
-        posts: state.posts,
-        categories: state.categories,
+        posts, categories
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actionCreators, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostEdit)
+export default connect(mapStateToProps, { addPost, editPost })(PostEdit)

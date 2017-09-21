@@ -67,9 +67,9 @@ class PostItem extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({comments}) {
     return {
-        comments: state.comments
+        comments
     }
 }
 

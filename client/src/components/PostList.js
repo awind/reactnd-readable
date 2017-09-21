@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
-import {timeConverter} from '../utils/Helpers'
 import PostItem from './PostItem'
 
 class PostList extends Component {

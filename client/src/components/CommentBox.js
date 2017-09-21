@@ -11,9 +11,8 @@ class CommentBox extends Component {
 
         ReadableAPI.addPostComment({id: id, timestamp: timestamp, author: author,
             body: body, parentId: parentId}).then(data => {
-                this.setState({inputAuthor: "", inputComment: ""})
                 this.props.addComment({id: id, timestamp: timestamp, author: author,
-                    body: body, parentId: parentId})
+                    body: body, parentId: parentId, voteScore: data.voteScore})
             })
     }
 

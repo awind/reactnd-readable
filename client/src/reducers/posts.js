@@ -1,4 +1,4 @@
-import { ADD_POST, EDIT_POST, DELETE_POST, POST_ORDER_BY_SCORE, POST_ORDER_BY_TIMESTAMP, UP_VOTE_POST, DOWN_VOTE_POST } from '../actions'
+import { ADD_POST, EDIT_POST, DELETE_POST, POST_ORDER_BY_SCORE, POST_ORDER_BY_TIMESTAMP, UP_VOTE_POST, DOWN_VOTE_POST } from '../actions/types'
 
 function posts(state = [], action) {
     const {id, timestamp, title, body, author, category, voteScore, deleted} = action

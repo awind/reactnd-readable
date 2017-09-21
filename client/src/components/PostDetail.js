@@ -12,11 +12,7 @@ class PostDetail extends Component {
 
     handleSortChange = (e) => {
         const sortBy = e.target.value
-        if(sortBy === 'timestamp') {
-            this.props.commentsOrderByTimestamp()
-        } else if (sortBy === 'score') {
-            this.props.commentsOrderByScore()
-        }
+        sortBy === 'timestamp' ? this.props.commentsOrderByTimestamp() : this.props.commentsOrderByScore()
     }
 
     handleDeletePost = (item) => {
@@ -103,10 +99,9 @@ class PostDetail extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({posts, comments}) {
     return {
-        posts: state.posts,
-        comments: state.comments
+        posts, comments
     }
 }
 

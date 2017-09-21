@@ -1,4 +1,4 @@
-import { ADD_CATEGORY } from '../actions'
+import { ADD_CATEGORY } from '../actions/types'
 
 function categories(state = [], action) {
     const { name, path } = action

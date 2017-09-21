@@ -1,26 +1,26 @@
-import { ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT, COMMENT_ORDER_BY_SOCRE, COMMENT_ORDER_BY_TIMESTAMP, UP_VOTE_COMMENT, DOWN_VOTE_COMMENT } from '../actions'
+import { ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT, COMMENT_ORDER_BY_SOCRE, COMMENT_ORDER_BY_TIMESTAMP, UP_VOTE_COMMENT, DOWN_VOTE_COMMENT } from '../actions/types'
 
 function comments(state = [], action) {
     const { id, parentId, author, body, timestamp, voteScore} = action
     switch(action.type) {
         case ADD_COMMENT:
-        const filterComments = state.filter((item) => {
-            return item.id === id
-        })
-        // filter duplicate
-        if (filterComments.length > 0) {
-            return state
-        }
-            return [
-                ...state, {
-                    id,
-                    parentId,
-                    author,
-                    body,
-                    timestamp,
-                    voteScore,
-                }
-            ]
+            const filterComments = state.filter((item) => {
+                return item.id === id
+            })
+            // filter duplicate
+            if (filterComments.length > 0) {
+                return state
+            }
+                return [
+                    ...state, {
+                        id,
+                        parentId,
+                        author,
+                        body,
+                        timestamp,
+                        voteScore,
+                    }
+                ]
         case EDIT_COMMENT:
             return state.map((item) => {
                 if(item.id === id) {

@@ -6,8 +6,7 @@ import PostDetail from './components/PostDetail'
 import PostEdit from './components/PostEdit'
 import * as ReadableAPI from './utils/ReadableAPI'
 import NavigationHeader from './components/NavigationHeader'
-import * as actionCreators from './actions'
-import { bindActionCreators } from 'redux'
+import { addCategory, addPost } from './actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import CommentEdit from './components/CommentEdit'
@@ -54,15 +53,10 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({categories, posts}) {
   return {
-    categories: state.categories,
-    posts: state.posts,
+    categories, posts
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch)
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+export default withRouter(connect(mapStateToProps, {addPost, addCategory})(App))
