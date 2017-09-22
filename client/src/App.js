@@ -6,7 +6,7 @@ import PostDetail from './components/PostDetail'
 import PostEdit from './components/PostEdit'
 import * as ReadableAPI from './utils/ReadableAPI'
 import NavigationHeader from './components/NavigationHeader'
-import { addCategory, addPost } from './actions'
+import { addCategory, addPost, postsOrderByTimestamp, postsOrderByScore } from './actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import CommentEdit from './components/CommentEdit'
@@ -59,4 +59,4 @@ function mapStateToProps({categories, posts}) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, {addPost, addCategory})(App))
+export default withRouter(connect(mapStateToProps, {addPost, addCategory, postsOrderByTimestamp, postsOrderByScore})(App))
